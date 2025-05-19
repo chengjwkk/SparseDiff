@@ -2,7 +2,7 @@
 
 Thank you for reviewing our **Neurips 2025** manuscript: 📄 *"Sparse Diffusion Autoencoder for Test-time Adapting Prediction of Spatiotemporal Dynamics"*
 
-This repository contains the implementation of **SparseDiff**, a novel approach for learning and predicting the evolution of complex dynamical systems using multiscale diffusion-based autoencoders.
+This repository contains the implementation of **SparseDiff**, a novel Sparse Diffusion Autoencoder that efficiently predicts spatiotemporal dynamics and dynamically self-adjusts at test-time.
 
 ![image](assets/SparseDiff.png)
 
@@ -36,11 +36,12 @@ Shape of the data:  (num_trajectories, steps, channel, x_dim, y_dim)
 2️⃣ **Download model chekpoint** 📂: [Google Drive](https://drive.google.com/drive/folders/1i2A_Bw3mUXcsInx8DvZOaOT7vO57-p9L?usp=sharing)
 
 We have three models: Sparse Encoder, Diffusive Predictor and Unconditioned diffusion.
-Please download *grand_input_10_256_1.pth* (the predictor model weights) and *vqvae_T_10_ae_pretrain_30_32_32.pth* (the sparse encoder model weights) to the ./log/sh directory. Download *model_999.pth* (the diffusion model weights) to the ./log/sh/ckpts_55 directory.
+Please download ***grand_input_10_256_1.pth*** (the predictor model weights) and ***vqvae_T_10_ae_pretrain_30_32_32.pth*** (the sparse encoder model weights) to the ./log/sh directory. Download ***model_999.pth*** (the diffusion model weights) to the ./log/sh/ckpts_55 directory.
 
 3️⃣ **Run the model** :
 
-After downloading the data and model weights, you can directly run *sample_sh.ipynb* to get the iterative prediction result for SH system! ✔️
+After downloading the data and model weights, you can directly run ***sample_sh.ipynb*** to get the iterative prediction result for SH system! ✅
+
 
 4️⃣ **Train the model**:
 
@@ -78,11 +79,12 @@ If you want to re-train the model, you can run train_sh.py with commands:
 │   ├── grand_predictor.py
 │   ├── unet.py
 │   └── vq_vae.py
-├── model
-│   ├── grand_input_10_256_1.pth
-│   ├── vqvae_T_10_ae_pretrain_30_32_32.pth
-│   ├── ckpts_55
-│   |   └── SH.yaml
+├── log
+│   ├── sh
+│   │   ├── grand_input_10_256_1.pth
+│   │   ├── vqvae_T_10_ae_pretrain_30_32_32.pth
+│   │   ├── ckpts_55
+│   │   |   └── model_999.pth
 ├── train_sh.py
 └── utils.py
 ```
