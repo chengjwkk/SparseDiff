@@ -38,6 +38,7 @@ Shape of the data:  (num_trajectories, steps, channel, x_dim, y_dim)
 2️⃣ **Download model chekpoint** 📂: [Google Drive](https://drive.google.com/drive/folders/1i2A_Bw3mUXcsInx8DvZOaOT7vO57-p9L?usp=sharing)
 
 We have three models: Sparse Encoder, Diffusive Predictor and Unconditioned diffusion.
+
 Please download ***grand_input_10_256_1.pth*** (the predictor model weights) and ***vqvae_T_10_ae_pretrain_30_32_32.pth*** (the sparse encoder model weights) to the ./log/sh directory. Download ***model_999.pth*** (the diffusion model weights) to the ./log/sh/ckpts_55 directory.
 
 3️⃣ **Run the model** :
