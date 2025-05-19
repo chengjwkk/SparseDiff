@@ -26,9 +26,13 @@ pip install tqdm yaml torch torchdiffeq ema_pytorch
 ### 🏃 Running the Model (Example: SH System)
 
 1️⃣ **Download Dataset** 📂: [Google Drive](https://drive.google.com/drive/folders/1i2A_Bw3mUXcsInx8DvZOaOT7vO57-p9L?usp=sharing)
+
 Shape of the data:  (num_trajectories, steps, channel, x_dim, y_dim)
-uv.npy: (100, 100, 1, 128, 128)
-uv_test.npy: (50, 100, 1, 128, 128)
+
+- uv.npy: (100, 100, 1, 128, 128)
+
+- uv_test.npy: (50, 100, 1, 128, 128)
+
 2️⃣ **Run the model**:
 
 - Single GPU / CPU:
