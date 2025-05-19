@@ -1,8 +1,6 @@
-# dataset params
+
 dataset: 'sh'
-n: 1    # 预测如果n>1，边权重的生成函数需要重新设计…
 noise: 0.0
-# model params
 model_type: 'DDPM'
 net_type: 'UNet_new'
 diffusion:
@@ -43,7 +41,7 @@ data:
   dx: 0.98175
 
 sample:
-  zeta_obs: 6000
+  zeta_obs: 5000
   zeta_pde: 0.1
   ratio: 0.1   # 开始pde guide后 obs的降比例
   proportion: 0.2   # pde 引导占据的比例
@@ -51,6 +49,9 @@ sample:
   num_tra: 50
   ddim_step: 100
   eta: 0.0
+  sample_step: 5
+  pred_steps: 10
+  change_step: 5
 
 
 # training params

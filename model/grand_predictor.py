@@ -101,8 +101,7 @@ class MultiHeadFlowAwareAttention(nn.Module):
         self.dst_mlps = nn.ModuleList([nn.Linear(d_in, d_in) for _ in range(num_heads)])
         
         # Edge encoding: direction (2D) + edge weight (1D)
-        self.edge_mlp = nn.Linear(3, d_in)    # 也可以多边？
-
+        self.edge_mlp = nn.Linear(3, d_in)  
     def forward(self, node_feat, Coord, edge_index, edge_weight, M):
         """
         Args:
@@ -117,19 +116,14 @@ class MultiHeadFlowAwareAttention(nn.Module):
         edge_num = M*(M-1)
         src, dst = edge_index
         E = src.shape[0]
-        # print(src[-5:])
-        # print("11")
-        # 1. 取出边上两个点的特征
+   
         h_i = node_feat[src]  # [E * batch_size, d_in]
         h_j = node_feat[dst]  # [E * batch_size, d_in]
-        # print("22")
-        # 2. 边的方向信息和权重
+      
         delta_coord = Coord[dst] - Coord[src]  # [E * batch_size, 2]
         edge_input = torch.cat([delta_coord, edge_weight], dim=-1)  # [E * batch_size, 3]
         edge_feat = self.edge_mlp(edge_input)  # [E * batch_size, d_in]
-        # print("33")
-        # ipdb.set_trace()
-        # 3. 多头注意力计算
+       
         attention_scores = []
         for i in range(self.num_heads):
             h_i_mlp = self.src_mlps[i](h_i)  # [E * batch_size, d_in]
@@ -137,26 +131,14 @@ class MultiHeadFlowAwareAttention(nn.Module):
             node_score = torch.sum(h_i_mlp * h_j_mlp, dim=-1)  # [E * batch_size]
             edge_score = torch.sum(edge_feat, dim=-1)  # [E * batch_size]
             attention_scores.append(node_score + edge_score)
-        # print("44")
         attention_scores = torch.stack(attention_scores, dim=-1)  # [E * batch_size, num_heads]
-        attention_scores = attention_scores / (d_in ** 0.5)
-
-        # 4. 构造 [batch_size, M, M, num_heads] 的稀疏 attention 矩阵
+        attention_scores = attention_scores / (d_in ** 0.5)    
         A_raw = torch.zeros(batch_size, M, M, self.num_heads, device=node_feat.device)  # [batch_size, M, M, num_heads]
-
-        # 需要将 attention_scores 填充到 A_raw 中
         for i in range(batch_size):
-            # 计算每个图的起始和结束索引
-            start_idx = i * edge_num    # 首先，这里应该是边数。（M * (M-1)）   ns和lo是否需要重新训练呢？
+            start_idx = i * edge_num    
             end_idx = (i + 1) * edge_num
-            
-            # 对于当前批次中的每个图，将 attention_scores 填充到对应的边位置
             A_raw[i, src[start_idx:end_idx] - i*M, dst[start_idx:end_idx] - i*M, :] = attention_scores[start_idx:end_idx, :]
-
-        # 5. 对每一行做 softmax（行归一化）
         A_softmax = F.softmax(A_raw, dim=2)  # [batch_size, M, M, num_heads]
-
-        # 6. 多头平均
         A = A_softmax.mean(dim=-1)  # [batch_size, M, M]
 
         return A
@@ -187,28 +169,15 @@ class GraphModel(nn.Module):
         Returns:
             Output node features, shape [batch_size, M, d_out]
         """
-        
         # Extract the necessary information from data
         x = data.x  # Node features, shape [M*batch_size, d_in]
         edge_index = data.edge_index  # Edge indices, shape [2, E*batch_size]
         edge_weight = data.edge_weight  # Edge weights, shape [E*batch_size, 1]
         Coord = data.Coord   #[M*batch_size, 2]
-        # print(x.shape, edge_index.shape, edge_weight.shape)
-        
         node_feat = self.encoder(x)  # [M, d_in]
-        
-        # print(node_feat.shape)
-        # Step 2: Compute attention weights a_ij (influence of node j on node i)
         A = self.attention(node_feat, Coord, edge_index, edge_weight, self.M)  # [batch_size, M, M]
-        # print(A[0,0,:])
-       
-        # A = self.construct_A(a_ij, edge_index, node_feat.shape[0])  # [M, M]
-
-     
         node_feat = self.ode_update(A, node_feat, t_input, self.M)  # [horizon, batch_size, M, d_in]
-        # print(node_feat.shape)
-        output = self.decoder(node_feat.permute(1,2,0,3).reshape(-1, self.horizon, self.d_in)).squeeze(-1)  # [batch_size*M, horizon]
-        # print(output.shape)    
+        output = self.decoder(node_feat.permute(1,2,0,3).reshape(-1, self.horizon, self.d_in)).squeeze(-1)  # [batch_size*M, horizon]    
         return output
     
         
@@ -223,18 +192,12 @@ class GraphModel(nn.Module):
         Returns:
             Updated node features after ODE integration.
         """
-        batch_size, _, d_in = x.shape[0] // M, x.shape[0], x.shape[1]  # Get batch size and M
-        # Reshape x to [batch_size, M, d_in] to match the required shape for ODE integration
+        batch_size, _, d_in = x.shape[0] // M, x.shape[0], x.shape[1] 
         x = x.view(batch_size, M, d_in)  # [batch_size, M, d_in]
-        # print(x.shape)
-        # print(A.shape)
         # Define the ODE model: dx/dt = (A - I)x
         def ode_func(t, x):
             A_batch = A  # Shape: [batch_size, M, M]
             # Compute (A - I) * x for each batch
             return torch.matmul(A_batch - torch.eye(M, device=A.device), x)  # [batch_size, M, d_in]
-        
-        # Use odeint to solve the ODE: dx/dt = f(t, x)
         x_new = odeint(ode_func, x, t_input, method='rk4')  # [num_time_steps, batch_size, M, d_in]
-        # print(x_new.shape)
         return x_new
