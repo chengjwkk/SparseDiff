@@ -86,7 +86,7 @@ If you want to re-train the model, you can run train_sh.py with commands:
 │   │   ├── grand_input_10_256_1.pth
 │   │   ├── vqvae_T_10_ae_pretrain_30_32_32.pth
 │   │   ├── ckpts_55
-│   │   |   └── model_999.pth
+│   │   │   └── model_999.pth
 ├── train_sh.py
 └── utils.py
 ```
