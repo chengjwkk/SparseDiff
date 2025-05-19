@@ -89,6 +89,7 @@ If you want to re-train the model, you can run train_sh.py with commands:
 │   │   ├── ckpts_55
 │   │   │   └── model_999.pth
 ├── train_sh.py
+├── sample_sh.ipynb
 └── utils.py
 ```
 
