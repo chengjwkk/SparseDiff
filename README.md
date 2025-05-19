@@ -1,6 +1,6 @@
 # 🌠 Sparse Diffusion Autoencoder for Test-time Adapting Prediction of Spatiotemporal Dynamics
 
-![Demo](assets/demo.gif)
+![Demo](assets/comparison.gif)
 
 Thank you for reviewing our **Neurips 2025** manuscript: 📄 *"Sparse Diffusion Autoencoder for Test-time Adapting Prediction of Spatiotemporal Dynamics"*
 
