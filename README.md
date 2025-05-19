@@ -1,10 +1,10 @@
-# 🌊 MDPNet: Multiscale Diffusion Autoencoder for Complex Systems
+# 🌊 Sparse Diffusion Autoencoder for Test-time Adapting Prediction of Spatiotemporal Dynamics
 
-Thank you for reviewing our **KDD 2025** manuscript: 📄 *"Predicting the Dynamics of Complex Systems via Multiscale Diffusion Autoencoder"*
+Thank you for reviewing our **Neurips 2025** manuscript: 📄 *"Sparse Diffusion Autoencoder for Test-time Adapting Prediction of Spatiotemporal Dynamics"*
 
-This repository contains the implementation of **MDPNet**, a novel approach for learning and predicting the evolution of complex dynamical systems using multiscale diffusion-based autoencoders.
+This repository contains the implementation of **SparseDiff**, a novel approach for learning and predicting the evolution of complex dynamical systems using multiscale diffusion-based autoencoders.
 
-![image](assets/SparseDiff.pdf)
+![image](assets/SparseDiff.png)
 
 
 
@@ -23,10 +23,12 @@ pip install tqdm yaml torch torchdiffeq ema_pytorch
 
 
 
-### 🏃 Running the Model (Example: GS System)
+### 🏃 Running the Model (Example: SH System)
 
-1️⃣ **Download Dataset** 📂: [Google Drive](https://drive.google.com/file/d/17-GSDZN4olVQaqBDbHzQq-UAhlwfGHoh/view?usp=sharing)
-
+1️⃣ **Download Dataset** 📂: [Google Drive](https://drive.google.com/drive/folders/1i2A_Bw3mUXcsInx8DvZOaOT7vO57-p9L?usp=sharing)
+Shape of the data:  (num_trajectories, steps, channel, x_dim, y_dim)
+uv.npy: (100, 100, 1, 128, 128)
+uv_test.npy: (50, 100, 1, 128, 128)
 2️⃣ **Run the model**:
 
 - Single GPU / CPU:
@@ -38,7 +40,7 @@ pip install tqdm yaml torch torchdiffeq ema_pytorch
 - Multi-GPU (with AMP support):
 
   ```sh
-  python -m torch.distributed.run --master_port=25640 --nproc_per_node=8 train.py --use_amp --multi_gpu
+  python -m torch.distributed.run --master_port=25640 --nproc_per_node=8 train.py --use_amp --multi_gpu --system sh
   ```
 
 
@@ -51,16 +53,17 @@ pip install tqdm yaml torch torchdiffeq ema_pytorch
 .
 ├── README.md
 ├── config
-│   └── GS.yaml
+│   └── SH.yaml
 ├── datasets.py
 ├── model
 │   ├── __init__.py
-│   ├── cEncoder.py
-│   ├── cPredictor.py
-│   ├── cUnet.py
+│   ├── block.py
 │   ├── common.py
-│   └── mDynaDDPM.py
-├── run.py
+│   ├── DDPM.py
+│   ├── grand_predictor.py
+│   ├── unet.py
+│   └── vq_vae.py
+├── train.py
 └── utils.py
 ```
 
@@ -70,7 +73,7 @@ pip install tqdm yaml torch torchdiffeq ema_pytorch
 
 ## 📌 Notes
 
-- This implementation provides a **demo using the GS system** as an example. (Full version will be released after acceptance)
+- This implementation provides a **demo using the SH system** as an example. (Full version will be released after acceptance)
 - Supports **both single-GPU and multi-GPU training**.
 - Configuration files are stored in the `config/` directory.
 - For questions regarding reproducibility or additional details, please refer to our manuscript.
