@@ -88,6 +88,10 @@ If you want to re-train the model, you can run train_sh.py with commands:
 │   │   ├── vqvae_T_10_ae_pretrain_30_32_32.pth
 │   │   ├── ckpts_55
 │   │   │   └── model_999.pth
+├── data
+│   ├── sh
+│   │   ├── uv.py
+│   │   └── uv_test.py
 ├── train_sh.py
 ├── sample_sh.ipynb
 ├── datasets.py
