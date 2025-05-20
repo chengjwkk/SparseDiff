@@ -53,13 +53,13 @@ If you want to re-train the model, you can run train_sh.py with commands:
 - For Single GPU / CPU:
 
   ```sh
-  python run.py
+  python train_sh.py
   ```
 
 - For Multi-GPU (with AMP support):
 
   ```sh
-  python -m torch.distributed.run --master_port=25640 --nproc_per_node=8 train.py --use_amp --multi_gpu --system sh
+  python -m torch.distributed.run --master_port=25640 --nproc_per_node=8 train_sh.py --use_amp --multi_gpu --system sh
   ```
 
 
