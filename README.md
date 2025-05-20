@@ -18,7 +18,7 @@ This repository contains the implementation of **SparseDiff**, a novel Sparse Di
 Ensure the following packages are installed before running the code:
 
 ```
-pip install tqdm yaml torch torchdiffeq ema_pytorch torch_geometric torchmetrics
+pip install tqdm yaml torch torchdiffeq ema_pytorch torch_geometric torchmetrics vector_quantize_pytorch
 ```
 
 
@@ -86,8 +86,7 @@ If you want to re-train the model, you can run train_sh.py with commands:
 │   ├── sh
 │   │   ├── grand_input_10_256_1.pth
 │   │   ├── vqvae_T_10_ae_pretrain_30_32_32.pth
-│   │   ├── ckpts_55
-│   │   │   └── model_999.pth
+│   │   └── model_999.pth 
 ├── data
 │   ├── sh
 │   │   ├── uv.npy
