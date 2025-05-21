@@ -27,7 +27,7 @@ pip install tqdm yaml torch torchdiffeq ema_pytorch torch_geometric torchmetrics
 
 ### 🏃 Running the Model (Example: SH System)
 
-1️⃣ **Download Dataset** 📂: [gofile](https://gofile.io/d/rezSGP)
+1️⃣ **Download Dataset** 📂: [Proton Drive](https://drive.proton.me/urls/N82NDP08F0#8tnsb0S120iT)
 
 Shape of the data:  (num_trajectories, steps, channel, x_dim, y_dim)
 
@@ -35,7 +35,7 @@ Shape of the data:  (num_trajectories, steps, channel, x_dim, y_dim)
 
 - uv_test.npy: (50, 100, 1, 128, 128)
   
-2️⃣ **Download model chekpoint** 📂: [gofile](https://gofile.io/d/rezSGP)
+2️⃣ **Download model chekpoint** 📂: [Proton Drive](https://drive.proton.me/urls/N82NDP08F0#8tnsb0S120iT)
 
 We have three models: Sparse Encoder, Diffusive Predictor and Unconditioned diffusion.
 
