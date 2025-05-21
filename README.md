@@ -34,12 +34,14 @@ Shape of the data:  (num_trajectories, steps, channel, x_dim, y_dim)
 - uv.npy: (100, 100, 1, 128, 128)
 
 - uv_test.npy: (50, 100, 1, 128, 128)
+
+Please download data to the `./data/sh` directory. 
   
 2️⃣ **Download model chekpoint** 📂: [Proton Drive](https://drive.proton.me/urls/N82NDP08F0#8tnsb0S120iT)
 
 We have three models: Sparse Encoder, Diffusive Predictor and Unconditioned diffusion.
 
-Please download ***grand_input_10_256_1.pth*** (the predictor model weights), ***vqvae_T_10_ae_pretrain_30_32_32.pth*** (the sparse encoder model weights) and ***model_999.pth*** (the diffusion model weights) to the ./log/sh directory. 
+Please download ***grand_input_10_256_1.pth*** (the predictor model weights), ***vqvae_T_10_ae_pretrain_30_32_32.pth*** (the sparse encoder model weights) and ***model_999.pth*** (the diffusion model weights) to the `./log/sh` directory. 
 
 3️⃣ **Run the model** :
 
