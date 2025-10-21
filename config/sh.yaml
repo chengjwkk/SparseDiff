@@ -17,21 +17,24 @@ vqvae:
   num_embeddings: 30
   T: 10
 
+# network:
+#   image_shape: [1, 128, 128]
+#   n_channels: 128
+#   ch_mults: [1, 2, 2, 2] # [1, 2, 4]
+#   is_attn: [False, True, True, True]
+#   dropout: 0.1
+#   n_blocks: 3
+#   use_res_for_updown: True
+
 network:
   image_shape: [1, 128, 128]
   n_channels: 128
-  ch_mults: [1, 2, 2, 2] # [1, 2, 4]
-  is_attn: [False, True, True, True]
+  ch_mults: [1, 2, 2] # [1, 2, 4]
+  is_attn: [False, False, True]
   dropout: 0.1
-  n_blocks: 3
-  use_res_for_updown: True
-
-# 50: ch_mults: [1, 2, 2, 2]; use_res_for_updown: False; augment_dim: 0
-
-# 可以再训练一个50，augment_dim: 16 ?
-
-# 加条件的diffusion： 26-23.3  64  [1,2,4] 去掉了augment_dim的逻辑; use_res_for_updown: True
-
+  n_blocks: 2
+  use_res_for_updown: False
+  
 data:
   img_resolution: 128
   channel: 1
@@ -43,8 +46,8 @@ data:
 sample:
   zeta_obs: 5000
   zeta_pde: 0.1
-  ratio: 0.1   # 开始pde guide后 obs的降比例
-  proportion: 0.2   # pde 引导占据的比例
+  ratio: 0.1   # decline rate of observation after pde guidance
+  proportion: 0.2   # proportion of pde guidance
   N: 5000
   num_tra: 50
   ddim_step: 100
