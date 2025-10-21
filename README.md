@@ -104,7 +104,7 @@ If you want to re-train the model, you can run train_sh.py with commands:
 
 ## 📌 Notes
 
-- This implementation provides a **demo using the SH system** as an example. (Full version will be released after acceptance)
+- This implementation provides a **demo using the SH system** as an example. 
 - Supports **both single-GPU and multi-GPU training**.
 - Configuration files are stored in the `config/` directory.
 - For questions regarding reproducibility or additional details, please refer to our manuscript.
