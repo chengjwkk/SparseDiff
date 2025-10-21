@@ -6,7 +6,7 @@ Thank you for reviewing our **Neurips 2025** manuscript: 📄 *"Sparse Diffusion
 
 This repository contains the implementation of **SparseDiff**, a novel Sparse Diffusion Autoencoder that efficiently predicts spatiotemporal dynamics and dynamically self-adjusts at test-time.
 
-![image](assets/SparseDiff.png)
+![image](assets/SparseDiff_method.png)
 
 
 
