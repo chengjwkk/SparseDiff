@@ -1,9 +1,9 @@
 # 🌠 Sparse Diffusion Autoencoder for Test-time Adapting Prediction of Spatiotemporal Dynamics
 
+This repository contains the implementation of **SparseDiff**, a novel Sparse Diffusion Autoencoder that efficiently predicts spatiotemporal dynamics and dynamically self-adjusts at test-time.
+
 ![Demo](assets/comparison.gif)
 
-
-This repository contains the implementation of **SparseDiff**, a novel Sparse Diffusion Autoencoder that efficiently predicts spatiotemporal dynamics and dynamically self-adjusts at test-time.
 
 ![image](assets/SparseDiff_method.png)
 
